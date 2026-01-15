@@ -1,4 +1,6 @@
-body { display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f4f7f6; font-family: sans-serif; }
+body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f4f7f6; font-family: sans-serif; }
+.stats { display: flex; gap: 40px; margin-bottom: 20px; }
+.stat-card { padding: 10px 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 .scene { position: relative; width: 600px; height: 400px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 100px; }
 .drop-zone { position: absolute; top: 0; width: 400px; height: 300px; border: 2px dashed #cbd5e0; border-radius: 15px; cursor: crosshair; }
 .pivot { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 60px solid #4a5568; position: absolute; bottom: 40px; }
