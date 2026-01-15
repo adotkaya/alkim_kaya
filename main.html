@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torque Seesaw Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="label">LEFT SIDE</div>
+            <div class="value"><span id="weight-left">0</span> kg</div>
+            <div class="sub-value">Force: <span id="torque-left">0</span></div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="label">RIGHT SIDE</div>
+            <div class="value"><span id="weight-right">0</span> kg</div>
+            <div class="sub-value">Force: <span id="torque-right">0</span></div>
+        </div>
+        <button id="pause-btn" class="secondary">Pause</button>
+        <button id="reset-btn">Reset Simulation</button>
+    </div>
+
+    <div class="scene">
+        <div id="drop-zone" class="drop-zone">
+            <div class="instruction">Click anywhere above the plank to drop weights</div>
+        </div>
+        <div class="pivot"></div>
+        <div id="plank" class="plank"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
