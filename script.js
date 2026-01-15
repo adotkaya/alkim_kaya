@@ -54,9 +54,11 @@ plank.addEventListener('click', (e) => {
 
 function animateFall(obj, startY) {
     const ghost = document.createElement('div');
-    ghost.className = 'weight falling';
+    ghost.className = 'weight';
+    ghost.style.position = 'absolute';
     ghost.style.left = obj.x + 'px';
     ghost.style.top = (startY || 0) + 'px';
+    ghost.style.bottom = 'auto';
     ghost.style.backgroundColor = obj.color;
     ghost.style.width = (20 + obj.weight * 3) + 'px';
     ghost.style.height = (20 + obj.weight * 3) + 'px';
@@ -64,7 +66,10 @@ function animateFall(obj, startY) {
     dropZone.appendChild(ghost);
 
     requestAnimationFrame(() => {
-        ghost.style.top = '100%';
+        requestAnimationFrame(() => {
+            ghost.style.transition = 'top 0.5s ease-in';
+            ghost.style.top = '100%';
+        });
     });
 
     setTimeout(() => {
