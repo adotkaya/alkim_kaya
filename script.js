@@ -2,6 +2,8 @@ const plank = document.getElementById('plank');
 const dropZone = document.getElementById('drop-zone');
 const weightLeftEl = document.getElementById('weight-left');
 const weightRightEl = document.getElementById('weight-right');
+const forceLeftEl = document.getElementById('force-left');
+const forceRightEl = document.getElementById('force-right');
 const pauseBtn = document.getElementById('pause-btn');
 const resetBtn = document.getElementById('reset-btn');
 let state = { objects: [] };
@@ -20,12 +22,8 @@ function loadState() {
     }
 }
 
-plank.addEventListener('click', (e) => {
+function addObject(x, startY) {
     if (isPaused) return;
-
-    const rect = plank.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-
     if (x < 0 || x > 400) return;
 
     const newObj = {
@@ -36,13 +34,29 @@ plank.addEventListener('click', (e) => {
     };
 
     state.objects.push(newObj);
-    animateFall(newObj);
+    animateFall(newObj, startY);
+}
+
+dropZone.addEventListener('click', (e) => {
+    const rect = dropZone.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    addObject(x, y);
 });
 
-function animateFall(obj) {
+plank.addEventListener('click', (e) => {
+    const plankRect = plank.getBoundingClientRect();
+    const dropRect = dropZone.getBoundingClientRect();
+    const x = e.clientX - plankRect.left;
+    const y = plankRect.top - dropRect.top;
+    addObject(x, y);
+});
+
+function animateFall(obj, startY) {
     const ghost = document.createElement('div');
     ghost.className = 'weight falling';
     ghost.style.left = obj.x + 'px';
+    ghost.style.top = (startY || 0) + 'px';
     ghost.style.backgroundColor = obj.color;
     ghost.style.width = (20 + obj.weight * 3) + 'px';
     ghost.style.height = (20 + obj.weight * 3) + 'px';
@@ -98,6 +112,8 @@ function calculatePhysics() {
 
     weightLeftEl.textContent = leftWeight;
     weightRightEl.textContent = rightWeight;
+    forceLeftEl.textContent = leftTorque;
+    forceRightEl.textContent = rightTorque;
 
     const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
     plank.style.transform = `rotate(${angle}deg)`;
