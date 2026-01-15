@@ -117,8 +117,8 @@ function calculatePhysics() {
 
     weightLeftEl.textContent = leftWeight;
     weightRightEl.textContent = rightWeight;
-    forceLeftEl.textContent = leftTorque;
-    forceRightEl.textContent = rightTorque;
+    forceLeftEl.textContent = Math.round(leftTorque);
+    forceRightEl.textContent = Math.round(rightTorque);
 
     const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
     plank.style.transform = `rotate(${angle}deg)`;

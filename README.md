@@ -1,6 +1,6 @@
 # alkim_kaya
 
-Well i am a backend developer thus my experience with JS is on backend and last time i wrote html and css was on college i guess...I wont try to fool you by acting like i didn't get help from AI. Times are changing and its happening rapidly, usage of AI is already in our daily professional routine and how big of a part it is will be rapidly increasing too day by day. So yeah, i used it in this task because i am not familiar with vanilla js for ui and html css, but i am being honest that it's not part of my thought process.
+Well i am a backend developer thus my experience with JS is on backend and last time i wrote html and css was on college i guess...I wont try to fool you by acting like i didn't get help from AI. Times are changing and its happening rapidly, usage of AI is already in our daily professional routine and how big of a part it is will be rapidly increasing too day by day. I used AI (Claude) for every part of this task, but not thought process. 
 
 So, the core logic is physics; main attr is torque which force x distance, in our case "weight x distance."
 Distance will be taken from click point of user, plank with pivot foot on middle. 
