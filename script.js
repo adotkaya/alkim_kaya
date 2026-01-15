@@ -1,4 +1,5 @@
 const plank = document.getElementById('plank');
+const dropZone = document.getElementById('drop-zone');
 const weightLeftEl = document.getElementById('weight-left');
 const weightRightEl = document.getElementById('weight-right');
 let state = { objects: [] };
@@ -17,9 +18,29 @@ plank.addEventListener('click', (e) => {
     };
 
     state.objects.push(newObj);
-    renderObjects();
-    calculatePhysics();
+    animateFall(newObj);
 });
+
+function animateFall(obj) {
+    const ghost = document.createElement('div');
+    ghost.className = 'weight falling';
+    ghost.style.left = obj.x + 'px';
+    ghost.style.backgroundColor = obj.color;
+    ghost.style.width = (20 + obj.weight * 3) + 'px';
+    ghost.style.height = (20 + obj.weight * 3) + 'px';
+    ghost.textContent = obj.weight + 'kg';
+    dropZone.appendChild(ghost);
+
+    requestAnimationFrame(() => {
+        ghost.style.top = '100%';
+    });
+
+    setTimeout(() => {
+        ghost.remove();
+        renderObjects();
+        calculatePhysics();
+    }, 500);
+}
 
 function renderObjects() {
     plank.querySelectorAll('.weight').forEach(el => el.remove());

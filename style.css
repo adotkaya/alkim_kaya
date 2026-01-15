@@ -6,3 +6,4 @@ body { display: flex; flex-direction: column; align-items: center; justify-conte
 .pivot { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 60px solid #4a5568; position: absolute; bottom: 40px; }
 .plank { width: 400px; height: 16px; background: #795548; border-radius: 8px; position: absolute; bottom: 100px; transform-origin: center center; transition: transform 0.6s ease; cursor: pointer; z-index: 10; }
 .weight { position: absolute; bottom: 100%; transform: translateX(-50%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px; pointer-events: none; }
+.weight.falling { top: 0; bottom: auto; transition: top 0.5s ease-in; }
