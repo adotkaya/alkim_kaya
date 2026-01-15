@@ -1,5 +1,6 @@
 const plank = document.getElementById('plank');
 const dropZone = document.getElementById('drop-zone');
+const scene = document.querySelector('.scene');
 const weightLeftEl = document.getElementById('weight-left');
 const weightRightEl = document.getElementById('weight-right');
 const forceLeftEl = document.getElementById('force-left');
@@ -53,31 +54,47 @@ plank.addEventListener('click', (e) => {
 });
 
 function animateFall(obj, startY) {
+    const sceneRect = scene.getBoundingClientRect();
+    const dropRect = dropZone.getBoundingClientRect();
+    const plankRect = plank.getBoundingClientRect();
+
     const ghost = document.createElement('div');
-    ghost.className = 'weight';
+    ghost.className = 'weight falling';
     ghost.style.position = 'absolute';
-    ghost.style.left = obj.x + 'px';
+    ghost.style.left = (dropRect.left - sceneRect.left + obj.x) + 'px';
     ghost.style.top = (startY || 0) + 'px';
     ghost.style.bottom = 'auto';
     ghost.style.backgroundColor = obj.color;
     ghost.style.width = (20 + obj.weight * 3) + 'px';
     ghost.style.height = (20 + obj.weight * 3) + 'px';
+    ghost.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
     ghost.textContent = obj.weight + 'kg';
-    dropZone.appendChild(ghost);
+    scene.appendChild(ghost);
+
+    const weightHeight = 20 + obj.weight * 3;
+    const endY = plankRect.top - sceneRect.top - weightHeight;
+    const distance = endY - startY;
+    const duration = Math.min(0.6, Math.max(0.3, distance / 500));
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            ghost.style.transition = 'top 0.5s ease-in';
-            ghost.style.top = '100%';
+            ghost.style.transition = `top ${duration}s cubic-bezier(0.4, 0, 0.9, 0.6), box-shadow ${duration}s ease`;
+            ghost.style.top = endY + 'px';
+            ghost.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
         });
     });
 
     setTimeout(() => {
         ghost.remove();
         renderObjects();
+        const landedWeight = plank.querySelector('.weight:last-child');
+        if (landedWeight) {
+            landedWeight.classList.add('landing');
+            setTimeout(() => landedWeight.classList.remove('landing'), 300);
+        }
         calculatePhysics();
         saveState();
-    }, 500);
+    }, duration * 1000);
 }
 
 function renderObjects() {
