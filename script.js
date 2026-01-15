@@ -15,8 +15,23 @@ plank.addEventListener('click', (e) => {
     };
 
     state.objects.push(newObj);
-    console.log('Added:', newObj);
+    renderObjects();
 });
+
+function renderObjects() {
+    plank.querySelectorAll('.weight').forEach(el => el.remove());
+
+    state.objects.forEach(obj => {
+        const div = document.createElement('div');
+        div.className = 'weight';
+        div.style.left = obj.x + 'px';
+        div.style.backgroundColor = obj.color;
+        div.style.width = (20 + obj.weight * 3) + 'px';
+        div.style.height = (20 + obj.weight * 3) + 'px';
+        div.textContent = obj.weight + 'kg';
+        plank.appendChild(div);
+    });
+}
 
 function calculatePhysics() {
     let leftTorque = 0;
