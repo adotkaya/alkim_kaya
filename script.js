@@ -16,6 +16,7 @@ plank.addEventListener('click', (e) => {
 
     state.objects.push(newObj);
     renderObjects();
+    calculatePhysics();
 });
 
 function renderObjects() {
