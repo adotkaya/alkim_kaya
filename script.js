@@ -2,7 +2,10 @@ const plank = document.getElementById('plank');
 const dropZone = document.getElementById('drop-zone');
 const weightLeftEl = document.getElementById('weight-left');
 const weightRightEl = document.getElementById('weight-right');
+const pauseBtn = document.getElementById('pause-btn');
+const resetBtn = document.getElementById('reset-btn');
 let state = { objects: [] };
+let isPaused = false;
 
 function saveState() {
     localStorage.setItem('seesawState', JSON.stringify(state));
@@ -18,6 +21,8 @@ function loadState() {
 }
 
 plank.addEventListener('click', (e) => {
+    if (isPaused) return;
+
     const rect = plank.getBoundingClientRect();
     const x = e.clientX - rect.left;
 
@@ -97,5 +102,17 @@ function calculatePhysics() {
     const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
     plank.style.transform = `rotate(${angle}deg)`;
 }
+
+pauseBtn.addEventListener('click', () => {
+    isPaused = !isPaused;
+    pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
+});
+
+resetBtn.addEventListener('click', () => {
+    state.objects = [];
+    localStorage.removeItem('seesawState');
+    renderObjects();
+    calculatePhysics();
+});
 
 loadState();
