@@ -50,5 +50,5 @@ func calculatePhysics() {
     const angle = max(-30, min(30, (rightTorque - leftTorque) / 10))
 }
 
-As a backend developer, the realization that "Weight" is a misleading metric for balance, so i added force(torque) metric to the ui too to help user understand why it tilts to rights even though left is heavier.
-Also all data will be stored in localStorage so there wont be any loss of data in "refresh"
+As a backend developer, the realization that "Weight" is a misleading metric to user for balance, so i'll add force(torque) metric to the ui too to help user understand why it tilts to rights even though left is heavier.
+Also all data will be stored in localStorage so there wont be any loss of data in "refresh".
