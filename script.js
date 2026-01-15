@@ -4,6 +4,19 @@ const weightLeftEl = document.getElementById('weight-left');
 const weightRightEl = document.getElementById('weight-right');
 let state = { objects: [] };
 
+function saveState() {
+    localStorage.setItem('seesawState', JSON.stringify(state));
+}
+
+function loadState() {
+    const saved = localStorage.getItem('seesawState');
+    if (saved) {
+        state = JSON.parse(saved);
+        renderObjects();
+        calculatePhysics();
+    }
+}
+
 plank.addEventListener('click', (e) => {
     const rect = plank.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -39,6 +52,7 @@ function animateFall(obj) {
         ghost.remove();
         renderObjects();
         calculatePhysics();
+        saveState();
     }, 500);
 }
 
@@ -83,3 +97,5 @@ function calculatePhysics() {
     const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
     plank.style.transform = `rotate(${angle}deg)`;
 }
+
+loadState();
